@@ -212,3 +212,39 @@ def quick_sort(nums):  # n^2
             _quick_sort(items, split_index + 1, high)
 
     _quick_sort(nums, 0, nums.get_len() - 1)
+
+
+def pigeonhole_sort(nums):
+    # as for the evaluation finding the max and min index 
+    num_max = 0
+    num_min = 0
+   
+    for i in range(nums.get_len()):
+        if nums.values[i] > nums.values[i-1]: num_max = nums.set(i, nums.values[i])
+    
+    for j in range(nums.get_len()):
+        if nums.values[j] < nums.values[j-1]: num_min = nums.set(i, nums.values[i])
+   
+    print(num_max)
+    # acclude the size of the valuable range in order to fit the pigeons
+    gap_size = (num_max - num_min) + 1
+    for j in gap_size:
+
+    #pigeon_arr = [0]*gap_size # an array
+        pigeon_arr = nums.set(j, 0)
+    # populating the holes with pigeons in it
+
+    for i in nums:
+        pigeon_arr[i - num_min] += 1
+
+    #num_len = nums.get_lens()
+
+    # taking the count of initialisser and maximising the response 
+    # minimising the iterations
+    index = 0
+    for take in range(gap_size):
+        while pigeon_arr[take] > 0:
+            pigeon_arr[take] -= 1
+
+            nums[index] = take + num_min
+            index += 1
